@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if defined(TARGET_WIN32)
 #include <QTML.h>
 #include <Movies.h>
+#include <FixMath.h>
 #define ofxHapPlayerFloatToFixed(x) X2Fix(x)
 #elif defined(TARGET_OSX)
 #include <QuickTime/QuickTime.h>
@@ -168,6 +169,11 @@ ofxHapPlayer::~ofxHapPlayer()
     */
     TerminateQTML();
 #endif
+}
+
+bool ofxHapPlayer::load(string name)
+{
+	return loadMovie(name);
 }
 
 bool ofxHapPlayer::loadMovie(string name)
@@ -384,7 +390,7 @@ bool ofxHapPlayer::loadMovie(string name)
         texData.width = renderRect.right;
         texData.height = renderRect.bottom;
         texData.textureTarget = GL_TEXTURE_2D;
-        texData.glTypeInternal = internalFormat;
+        texData.glInternalFormat = internalFormat;
 #if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
         texData.glType = GL_BGRA;
         texData.pixelType = GL_UNSIGNED_INT_8_8_8_8_REV;
@@ -690,6 +696,16 @@ ofPixelsRef ofxHapPlayer::getPixelsRef()
 {
     static ofPixels ref;
     return ref;
+}
+
+ofPixels& ofxHapPlayer::getPixels()
+{
+	return static_cast<ofxHapPlayer *>(this)->getPixels();
+}
+
+const ofPixels& ofxHapPlayer::getPixels() const
+{
+	return static_cast<const ofxHapPlayer *>(this)->getPixels();
 }
 
 const ofPixels& ofxHapPlayer::getPixelsRef() const

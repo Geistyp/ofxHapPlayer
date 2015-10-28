@@ -35,6 +35,7 @@ public:
     ofxHapPlayer();
     virtual ~ofxHapPlayer();
     
+	virtual bool                load(string name);
     virtual bool                loadMovie(string name);
     virtual void                close();
     virtual void                update();
@@ -44,7 +45,9 @@ public:
     
     virtual bool                isFrameNew() const;
     virtual bool                isFrameNew();
-    virtual unsigned char *     getPixels() {return NULL;};
+    //virtual unsigned char *     getPixels() {return NULL;};
+	virtual ofPixels&			getPixels();
+	virtual const ofPixels&		getPixels() const;
     virtual ofPixelsRef         getPixelsRef();
     virtual const ofPixels&     getPixelsRef() const;
     virtual ofTexture *         getTexture();
