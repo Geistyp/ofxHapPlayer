@@ -1,5 +1,10 @@
 ofxHapPlayer
 ============
+Add 0.90 vs2015 support
+
+Note that if you met with error C2733, you can comment "GetProcessInformation" in Processes.h
+
+============
 
 A Hap player for OpenFrameworks on MacOS X and Windows.
 
